@@ -1,4 +1,6 @@
-class UserClass:
+from abc import ABC, abstractmethod
+
+class UserClass(ABC):
     @abstractmethod
     def n_clicks(self, bid):
         pass
