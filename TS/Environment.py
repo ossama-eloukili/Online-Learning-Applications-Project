@@ -1,6 +1,7 @@
 import numpy as np
 
-class Environment():
+class Environment:
+    
     def __init__(self, n_arms, probabilities):
         self.n_arms = n_arms
         self.probabilities = probabilities
