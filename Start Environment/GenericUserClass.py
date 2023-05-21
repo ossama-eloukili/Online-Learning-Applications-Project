@@ -3,12 +3,12 @@ from UserClass import UserClass
 import numpy as np
 
 
-def default_dev(x):
+def fixed_dev(x):
         return 1
 
 
 class GenericUserClass(UserClass):
-    def __init__(self, click_function, cost_function, conversion, click_dev=default_dev, cost_dev=default_dev):
+    def __init__(self, click_function, cost_function, conversion, click_dev=fixed_dev, cost_dev=fixed_dev):
         self.click_function = click_function
         self.click_dev = click_dev
         self.cost_function = cost_function
