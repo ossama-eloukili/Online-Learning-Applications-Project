@@ -10,7 +10,7 @@ def exp_clicks(x, y_max, x_scale, offset):
     return y
 
 def exp_cost(x, click_function, scale):
-    return click_function(x) * scale * x**0.5     # The 0.8 makes the cost per click decrease with the nomber of clicks
+    return click_function(x) * scale * x**0.5     # This value makes the cost per click decrease with the nomber of clicks
 
 def conversion_func(price, min_price, drop_rate):
     return np.exp(-((price - min_price)*drop_rate))
@@ -87,11 +87,11 @@ if __name__ == "__main__":
     
     fig, axs = plt.subplots(1, 3, figsize=(18, 4))
 
-    axs[0].plot(bid, y_clicks)
     axs[0].plot(bid, click_samples, "o")
+    axs[0].plot(bid, y_clicks)
     axs[0].set_title("n_clicks")
-    axs[1].plot(bid, y_cost)
     axs[1].plot(bid, cost_samples, "o")
+    axs[1].plot(bid, y_cost)
     axs[1].set_title("cum_cost")
     axs[2].bar(price, conversion)
     axs[2].set_title("conversion")
