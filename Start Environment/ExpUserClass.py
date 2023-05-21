@@ -13,13 +13,39 @@ def exp_cost(x, click_function, scale):
     return click_function(x) * scale * x**0.5     # The 0.8 makes the cost per click decrease with the nomber of clicks
 
 def conversion_func(price, min_price, drop_rate):
-    return np.exp(-(price*drop_rate - min_price))
+    return np.exp(-((price - min_price)*drop_rate))
 
 
 class ExpUserClass(GenericUserClass):
+    """
+    This UserClass uses an exponential function to medel the internal clicks, cost and conversion curves.
+    The noise added to the curves has proportional std deviation to the y value of the function.
+    It has multiple parameters to control the shape of these curves.
+    All the parameters have default values, so it's not necessary to use all of them, just set the ones that are needed.
+
+    ### parameters for the n_clicks curve:
+    - min_bid: The minimum bid needed to start winning any auction and start getting clicks;
+    - max_clicks: The asymptotic maximum number of clicks obtainable with infinite bid;
+    - clicks_scaling: A scaling factor that models how fast number of clicks rises as the bid varies;
+
+    ### parameters for the cost curve:
+    - cost_scaling: a parameter that controls how fast the cost rises as the bid increases;
+
+    ### parameters for the conversion:
+    - price_values: the valid values for the price of the product;
+    - min_price: a theoretical price where the conversion rate is 100%;
+    - conversion_drop_rate: this parameter controls how fast the conversion % drops as the price increases,
+                            higher values make the function drop faster;
+    - conversion_dict: instead of giving the last parameters one can directly imput a dictionary with custom prices 
+                        and conversions for each, if this is given the other parameters for the conversion are ignored;
+
+    ### noise parameters:
+    - prop_dev_clicks: the standard deviation of the gaussian noise added to the clicks curve;
+    - prop_dev_cost: the standard deviation of the gaussian noise added to the cost curve;
+    """
     def __init__(self, min_bid=0.05, max_clicks=10000, clicks_scaling=2000,
-                 cost_scaling=10, 
-                 price_values=[20, 22, 24, 26, 28], min_price=0, conversion_drop_rate=0.1, conversion_dict=None,
+                 cost_scaling=1, 
+                 price_values=[20, 22, 24, 26, 28], min_price=5, conversion_drop_rate=0.2, conversion_dict=None,
                  prop_dev_clicks=0.1, prop_dev_cost=0.1):
         clicks = lambda bid: exp_clicks(bid, max_clicks, clicks_scaling, min_bid)
         clicks_dev = lambda bid: clicks(bid) * prop_dev_clicks
