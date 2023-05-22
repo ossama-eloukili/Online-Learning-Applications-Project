@@ -17,7 +17,7 @@ ts_rewards_per_experiment = []
 
 for e in range(0, n_experiments):
     env = Environment(n_arms = n_arms, probabilities = p)
-    ts_learner = TS_Learner(n_arms = n_arms)
+    ts_learner = TS_Learner(n_arms)
     for t in range(0, T):
         pulled_arm = ts_learner.pull_arm()
         reward = env.round(n_daily_clicks, margin, cum_daily_costs, pulled_arm)
