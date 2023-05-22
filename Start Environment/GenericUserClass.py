@@ -35,6 +35,19 @@ class GenericUserClass(UserClass):
             return np.random.binomial(n_users, p)
         except:
             raise ValueError("The price is not one of the available values")
+        
+    def clarvoyant_solution(self, prod_cost, bid_range):
+        profit_per_click = {}
+        for price in self.conversion:
+            profit_per_click[price] = self.conversion[price] * (price - prod_cost)
+        best_price = max(profit_per_click, key=profit_per_click.get)
+
+        reward = {}
+        for bid in bid_range:
+            reward[bid] = profit_per_click[best_price] * self.click_function(bid) - self.cost_function(bid)
+        best_bid = max(reward, key=reward.get)
+
+        return best_price, best_bid
 
 
 # Testing for the class

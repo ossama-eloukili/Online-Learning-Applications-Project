@@ -10,7 +10,7 @@ def exp_clicks(x, y_max, x_scale, offset):
     return y
 
 def exp_cost(x, click_function, scale):
-    return click_function(x) * scale * x**0.5     # This value makes the cost per click decrease with the nomber of clicks
+    return click_function(x) * scale * x**0.5
 
 def conversion_func(price, min_price, drop_rate):
     return np.exp(-((price - min_price)*drop_rate))
@@ -44,7 +44,7 @@ class ExpUserClass(GenericUserClass):
     - prop_dev_cost: the standard deviation of the gaussian noise added to the cost curve;
     """
     def __init__(self, min_bid=0.05, max_clicks=10000, clicks_scaling=2000,
-                 cost_scaling=1, 
+                 cost_scaling=0.1, 
                  price_values=[20, 22, 24, 26, 28], min_price=5, conversion_drop_rate=0.2, conversion_dict=None,
                  prop_dev_clicks=0.1, prop_dev_cost=0.1):
         clicks = lambda bid: exp_clicks(bid, max_clicks, clicks_scaling, min_bid)
@@ -64,19 +64,28 @@ if __name__ == "__main__":
     clicks = lambda x: exp_clicks(x, 10000, 5000, 1)
 
     usr_class = ExpUserClass()
+    prod_cost = 18
+    bid_range = np.arange(0, 1, 0.01)
 
     bid = []
     y_clicks = []
     click_samples = []
     y_cost = []
     cost_samples = []
-    for i in range(100):
-        x = i/100
+    exp_reward = {}
+    for price in usr_class.conversion:
+        exp_reward[price] = []
+    for x in bid_range:
         bid.append(x)
-        y_clicks.append(usr_class.click_function(x))
+        clicks = usr_class.click_function(x)
+        y_clicks.append(clicks)
         click_samples.append(usr_class.n_clicks(x))
-        y_cost.append(usr_class.cost_function(x))
+        cost = usr_class.cost_function(x)
+        y_cost.append(cost)
         cost_samples.append(usr_class.cum_click_cost(x))
+        for price in usr_class.conversion:
+            reward = (price - prod_cost) * usr_class.conversion[price] * clicks - cost
+            exp_reward[price].append(reward)
 
     price = []
     conversion = []
@@ -84,8 +93,11 @@ if __name__ == "__main__":
         price.append(value)
         conversion.append(usr_class.conversion[value])
 
+    best_price, best_bid = usr_class.clarvoyant_solution(18, bid_range)
+
     
-    fig, axs = plt.subplots(1, 3, figsize=(18, 4))
+    fig, axs = plt.subplots(2, 2, figsize=(12, 8))
+    axs = axs.flatten()
 
     axs[0].plot(bid, click_samples, "o")
     axs[0].plot(bid, y_clicks)
@@ -95,6 +107,11 @@ if __name__ == "__main__":
     axs[1].set_title("cum_cost")
     axs[2].bar(price, conversion)
     axs[2].set_title("conversion")
+    for price in exp_reward:
+        axs[3].plot(bid, exp_reward[price], label=price)
+    axs[3].axvline(best_bid)
+    axs[3].set_title("expected reward")
+    axs[3].legend()
 
     plt.show()
 

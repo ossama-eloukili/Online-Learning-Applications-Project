@@ -12,3 +12,7 @@ class UserClass(ABC):
     @abstractmethod
     def pull_user(self, price, n_users=1):
         pass
+
+    @abstractmethod
+    def clarvoyant_solution(self, prod_cost, bid_range):
+        pass
