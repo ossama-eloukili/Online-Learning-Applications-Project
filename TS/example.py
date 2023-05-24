@@ -3,9 +3,13 @@ import matplotlib.pyplot as plt
 from Environment import *
 from TS_Learner import *
 
+#Fixed parameters
 n_arms = 5
-p = np.array([0.15, 0.1, 0.1, 0.35])
 T = 365
+
+#Parameters to be set (temporary chosen randomly)
+p = np.array([0.15, 0.1, 0.1, 0.35])
+opt = p[3] #the last arm is the optimal one
 n_daily_clicks = 1000
 margin = 90
 cum_daily_costs = 200
@@ -25,6 +29,14 @@ for e in range(0, n_experiments):
         
     ts_rewards_per_experiment.append(ts_rewards_per_experiment)
 
+
+#Plot Cumulative Regret
+plt.figure(0)
+plt.xlabel("t")
+plt.ylabel("Regret")
+plt.plot(np.cumsum(np.mean(opt - ts_rewards_per_experiment, axis = 0)), 'r')
+plt.legend(["TS"])
+plt.show()
 
 
 
