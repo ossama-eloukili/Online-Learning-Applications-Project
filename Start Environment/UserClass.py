@@ -2,11 +2,11 @@ from abc import ABC, abstractmethod
 
 class UserClass(ABC):
     @abstractmethod
-    def n_clicks(self, bid):
+    def n_clicks(self, bid, noise=True):
         pass
     
     @abstractmethod
-    def cum_click_cost(self, bid):
+    def cum_click_cost(self, bid, noise=True):
         pass
 
     @abstractmethod

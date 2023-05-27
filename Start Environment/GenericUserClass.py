@@ -15,15 +15,19 @@ class GenericUserClass(UserClass):
         self.cost_dev = cost_dev
         self.conversion = conversion
 
-    def n_clicks(self, bid):
-        pull = self.click_function(bid) + np.random.normal(0, self.click_dev(bid))
+    def n_clicks(self, bid, noise=True):
+        pull = self.click_function(bid)
+        if noise:
+            pull += np.random.normal(0, self.click_dev(bid))
         if pull > 0:
             return int(pull)
         else:
             return 0
         
-    def cum_click_cost(self, bid):
-        pull = self.cost_function(bid) + np.random.normal(0, self.cost_dev(bid))
+    def cum_click_cost(self, bid, noise=True):
+        pull = self.cost_function(bid)
+        if noise:
+            pull += np.random.normal(0, self.cost_dev(bid))
         if pull>0:
             return pull
         else:
