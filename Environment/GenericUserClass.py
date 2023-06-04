@@ -1,4 +1,4 @@
-from UserClass import UserClass
+from .UserClass import UserClass
 
 import numpy as np
 

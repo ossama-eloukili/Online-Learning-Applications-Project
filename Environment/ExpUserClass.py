@@ -1,4 +1,4 @@
-from GenericUserClass import GenericUserClass
+from .GenericUserClass import GenericUserClass
 
 import numpy as np
 
