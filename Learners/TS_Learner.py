@@ -4,7 +4,7 @@ import numpy as np
 
 
 class TS_Learner(Learner):
-    def __init__(self, arms):
+    def __init__(self, arms, min_reward=0, max_reward=1):
         self.values = {}
         self.counts = {}
         self.beta = {}
@@ -12,6 +12,8 @@ class TS_Learner(Learner):
             self.values[arm] = 0
             self.counts[arm] = 0
             self.beta[arm] = [1, 1]
+        self.offset = min_reward
+        self.scale = max_reward - min_reward
 
     def pull_arm(self):
         """
@@ -30,6 +32,7 @@ class TS_Learner(Learner):
         self.counts[arm] += 1
         n = self.counts[arm]
         value = self.values[arm]
+        reward = (reward - self.offset) / self.scale
         new_value = ((n - 1) / float(n)) * value + (1 / float(n)) * reward
         self.values[arm] = new_value
 
@@ -40,7 +43,10 @@ class TS_Learner(Learner):
         """
         returns a dictionary with the values for each arm
         """
-        return self.values
+        dict = {}
+        for arm in self.values:
+            dict[arm] = self.values[arm]*self.scale + self.offset
+        return dict
     
 
 if __name__ == "__main__":
