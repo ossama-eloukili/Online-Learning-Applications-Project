@@ -6,11 +6,9 @@ from sklearn.gaussian_process import GaussianProcessRegressor
 
 class GP_UCB_Learner(Learner):
     def __init__(self, arms, kernel=None, alpha=1):
-        self.values = {}
-        self.ucb = {}
-        for arm in arms:
-            self.values[arm] = 0
-            self.ucb[arm] = 0
+        self.arms = list(arms)
+        self.values = None
+        self.sigma = None
         self.gp = GaussianProcessRegressor(kernel=kernel, alpha = alpha, normalize_y = False)
         self.x = np.array([])
         self.y = np.array([])
@@ -21,9 +19,12 @@ class GP_UCB_Learner(Learner):
         returns the value of the arm to pull
         """
         if len(self.x) == 0:
-            return rnd.choice(list(self.ucb.keys()))    #TODO don't know if this is enough
+            return rnd.choice(self.arms)
+        
+        ucb = self.values + 2*self.sigma
+        i = np.argmax(ucb)
 
-        return max(self.ucb, key=self.ucb.get)
+        return self.arms[i]
     
     
     def update(self, arm, reward):
@@ -32,22 +33,23 @@ class GP_UCB_Learner(Learner):
         """
         self.x = np.append(self.x, arm)
         self.y = np.append(self.y, reward)
+
         X = np.atleast_2d(self.x).T
         Y = self.y.ravel()
-
         self.gp.fit(X, Y)
 
-        for key in self.values:
-            y_pred, sigma = self.gp.predict(key, return_std = True)
-            self.values[key] = y_pred
-            self.ucb[key] = y_pred + sigma  #TODO don't knoiw if this is coerrect
+        self.values, self.sigma = self.gp.predict(np.atleast_2d(self.arms).T, return_std = True)
 
 
     def get_values(self):
         """
         returns a dictionary with the values for each arm
         """
-        return self.values
+        dict = {}
+        for i, arm in enumerate(self.arms):
+            dict[arm] = self.values[i]
+
+        return dict
     
 
 if __name__ == "__main__":
