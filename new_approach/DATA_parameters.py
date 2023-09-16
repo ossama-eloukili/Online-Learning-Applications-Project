@@ -1,7 +1,7 @@
 import numpy as np
 
 # margin
-MARGIN_PARAM = 10
+MARGIN_PARAM = 40
 
 
 # sigmas

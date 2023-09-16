@@ -20,7 +20,7 @@ def click_f(bid):
 
 
 def cost_f(bid):
-    return bid * 2
+    return bid * 60
 
 
 def conversion_rate_f(price):
@@ -49,7 +49,7 @@ def click_f(bid):
 
 
 def cost_f(bid):
-    return bid * 2
+    return bid * 60
 
 
 def conversion_rate_f(price):
@@ -78,7 +78,7 @@ def click_f(bid):
 
 
 def cost_f(bid):
-    return bid * 2
+    return bid * 60
 
 
 def conversion_rate_f(price):
