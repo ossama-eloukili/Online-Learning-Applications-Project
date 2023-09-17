@@ -109,11 +109,15 @@ def click_f(bid):
 def cost_f(bid):
     return bid * 60
 
-
 def conversion_rate_f(price):
     return np.array([(np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9, \
                     ((-np.power((price - 70), 4))/(np.power((50-70), 4))+1.2)*0.75, \
                     (np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9])
+
+'''def conversion_rate_f(price):
+    return np.array([(np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9, \
+                    ((-np.power((price - 70), 4))/(np.power((50-70), 4))+1.2)*0.75, \
+                    (np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9])'''
 
 
 C1_NS = UserClass(F1, F2, click_f, cost_f, conversion_rate_f)
