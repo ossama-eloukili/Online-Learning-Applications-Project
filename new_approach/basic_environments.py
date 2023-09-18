@@ -27,7 +27,7 @@ class PricingEnvironment:
         alpha = self.convertion_rates[pulled_arm]
         converted_clicks = np.random.binomial(n_daily_clicks, alpha)
         reward =  converted_clicks * (self.prices[pulled_arm] - self.margin_param) - cum_daily_costs
-        return reward
+        return converted_clicks, reward
     
     def round_step3(self, pulled_arm, n_daily_clicks, cum_daily_costs):
         alpha = self.convertion_rates[pulled_arm]
