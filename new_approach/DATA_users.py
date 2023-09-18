@@ -110,9 +110,26 @@ def cost_f(bid):
     return bid * 60
 
 def conversion_rate_f(price):
+    return  np.array([(price <= 55) * 0.9 + \
+            (55 < price)*(price <= 65) * 0.6 + \
+            (65 < price)*(price <= 75) * 0.28 + \
+            (75 < price)*(price <= 85) * 0.05 + \
+            (price > 85) * 0.02, \
+            (price <= 55) * 0.7 + \
+            (55 < price)*(price <= 65) * 0.3 + \
+            (65 < price)*(price <= 75) * 0.15 + \
+            (75 < price)*(price <= 85) * 0.05 + \
+            (price > 85) * 0.02, \
+            (price <= 55) * 0.9 + \
+            (55 < price)*(price <= 65) * 0.8 + \
+            (65 < price)*(price <= 75) * 0.6 + \
+            (75 < price)*(price <= 85) * 0.1 + \
+            (price > 85) * 0.05])
+
+'''def conversion_rate_f(price):
     return np.array([(np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9, \
                     ((-np.power((price - 70), 4))/(np.power((50-70), 4))+1.2)*0.75, \
-                    (np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9])
+                    (np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9])'''
 
 '''def conversion_rate_f(price):
     return np.array([(np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9, \
