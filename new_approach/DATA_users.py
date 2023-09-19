@@ -165,7 +165,7 @@ def conversion_rate_f(price):
             (65 < price)*(price <= 75) * 0.28 + \
             (75 < price)*(price <= 85) * 0.05 + \
             (price > 85) * 0.02, \
-            (price <= 55) * 0.6 + \
+            (price <= 55) * 0.4 + \
             (55 < price)*(price <= 65) * 0.2 + \
             (65 < price)*(price <= 75) * 0.3 + \
             (75 < price)*(price <= 85) * 0.85 + \
