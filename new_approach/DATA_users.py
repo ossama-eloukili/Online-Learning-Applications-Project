@@ -176,15 +176,16 @@ def conversion_rate_f(price):
             (75 < price)*(price <= 85) * 0.1 + \
             (price > 85) * 0.05, \
             (price <= 55) * 0.35 + \
-            (55 < price)*(price <= 65) * 0.35 + \
-            (65 < price)*(price <= 75) * 0.15 + \
-            (75 < price)*(price <= 85) * 0.05 + \
-            (price > 85) * 0.02, \
-            (price <= 55) * 0.35 + \
             (55 < price)*(price <= 65) * 0.8 + \
             (65 < price)*(price <= 75) * 0.6 + \
             (75 < price)*(price <= 85) * 0.1 + \
-            (price > 85) * 0.05])
+            (price > 85) * 0.05, \
+            (price <= 55) * 0.35 + \
+            (55 < price)*(price <= 65) * 0.35 + \
+            (65 < price)*(price <= 75) * 0.15 + \
+            (75 < price)*(price <= 85) * 0.05 + \
+            (price > 85) * 0.02
+            ])
 
 
 
