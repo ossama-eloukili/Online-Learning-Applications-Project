@@ -10,12 +10,6 @@ def click_f(bid):
     bid_0 = 2
     bid_1 = 6
     max_clicks = 100
-
-    # if bid < bid_0:
-    #     return 0
-    # elif bid < bid_1:
-    #     return n_max * (bid - bid_0)/(bid_1-bid_0)
-    # return n_max
     return (bid < bid_1) * (bid > bid_0) * (bid - bid_0)/(bid_1-bid_0) * max_clicks + (bid >= bid_1) * max_clicks
 
 
@@ -39,12 +33,6 @@ def click_f(bid):
     bid_0 = 2
     bid_1 = 6
     max_clicks = 100
-
-    # if bid < bid_0:
-    #     return 0
-    # elif bid < bid_1:
-    #     return n_max * (bid - bid_0)/(bid_1-bid_0)
-    # return n_max
     return (bid < bid_1) * (bid > bid_0) * (bid - bid_0)/(bid_1-bid_0) * max_clicks + (bid >= bid_1) * max_clicks
 
 
@@ -68,12 +56,6 @@ def click_f(bid):
     bid_0 = 2
     bid_1 = 6
     max_clicks = 100
-
-    # if bid < bid_0:
-    #     return 0
-    # elif bid < bid_1:
-    #     return n_max * (bid - bid_0)/(bid_1-bid_0)
-    # return n_max
     return (bid < bid_1) * (bid > bid_0) * (bid - bid_0)/(bid_1-bid_0) * max_clicks + (bid >= bid_1) * max_clicks
 
 
@@ -97,12 +79,6 @@ def click_f(bid):
     bid_0 = 2
     bid_1 = 6
     max_clicks = 100
-
-    # if bid < bid_0:
-    #     return 0
-    # elif bid < bid_1:
-    #     return n_max * (bid - bid_0)/(bid_1-bid_0)
-    # return n_max
     return (bid < bid_1) * (bid > bid_0) * (bid - bid_0)/(bid_1-bid_0) * max_clicks + (bid >= bid_1) * max_clicks
 
 
@@ -126,16 +102,6 @@ def conversion_rate_f(price):
             (75 < price)*(price <= 85) * 0.1 + \
             (price > 85) * 0.05])
 
-'''def conversion_rate_f(price):
-    return np.array([(np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9, \
-                    ((-np.power((price - 70), 4))/(np.power((50-70), 4))+1.2)*0.75, \
-                    (np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9])'''
-
-'''def conversion_rate_f(price):
-    return np.array([(np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9, \
-                    ((-np.power((price - 70), 4))/(np.power((50-70), 4))+1.2)*0.75, \
-                    (np.exp(-0.1*price + 50))/np.exp(-0.1*50+50)*0.9])'''
-
 
 C1_NS = UserClass(F1, F2, click_f, cost_f, conversion_rate_f)
 
@@ -147,12 +113,6 @@ def click_f(bid):
     bid_0 = 2
     bid_1 = 6
     max_clicks = 100
-
-    # if bid < bid_0:
-    #     return 0
-    # elif bid < bid_1:
-    #     return n_max * (bid - bid_0)/(bid_1-bid_0)
-    # return n_max
     return (bid < bid_1) * (bid > bid_0) * (bid - bid_0)/(bid_1-bid_0) * max_clicks + (bid >= bid_1) * max_clicks
 
 
